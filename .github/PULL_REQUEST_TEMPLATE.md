@@ -1,21 +1,19 @@
-## 描述
+## Description
 
-请简要描述你的更改内容。
+Please include a summary of the changes.
 
-## 类型
+## Type of change
 
-- [ ] ✨ 新功能 (New feature)
-- [ ] 🐛 Bug 修复 (Bug fix)
-- [ ] 📝 文档更新 (Documentation)
-- [ ] 💄 UI/样式调整 (UI/Styles)
-- [ ] ♻️ 代码重构 (Refactoring)
+- [ ] ✨ New feature
+- [ ] 🐛 Bug fix
+- [ ] 📝 Documentation update
+- [ ] 💄 UI/Styles adjustment
+- [ ] ♻️ Code refactoring
 
-## 检查清单
+## Checklist:
 
-在提交 PR 之前，请检查以下内容：
-
-- [ ] 我已阅读并遵循项目的贡献指南。
-- [ ] 我的代码遵循项目的代码风格。
-- [ ] 我已经对自己代码进行了自我审查。
-- [ ] 我已经注释了难以理解的代码部分。
-- [ ] 我所做的更改没有产生新的警告或错误。
+- [ ] I have read the contributing guidelines.
+- [ ] My code follows the code style of this project.
+- [ ] I have performed a self-review of my own code.
+- [ ] I have commented my code, particularly in hard-to-understand areas.
+- [ ] My changes generate no new warnings or errors.

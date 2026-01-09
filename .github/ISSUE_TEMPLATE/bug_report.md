@@ -1,32 +1,32 @@
 ---
 name: Bug Report 🐛
-about: 创建一个 bug 报告以帮助我们改进
+about: Create a report to help us improve
 title: "[BUG] "
 labels: bug
 assignees: ''
 
 ---
 
-**描述该 Bug**
-清晰简洁地描述 bug 是什么。
+**Describe the bug**
+A clear and concise description of what the bug is.
 
-**复现步骤**
-复现行为的步骤：
-1. 打开 '...'
-2. 点击 '....'
-3. 滚动到 '....'
-4. 看到错误
+**To Reproduce**
+Steps to reproduce the behavior:
+1. Go to '...'
+2. Click on '....'
+3. Scroll down to '....'
+4. See error
 
-**预期行为**
-清晰简洁地描述你期望发生的事情。
+**Expected behavior**
+A clear and concise description of what you expected to happen.
 
-**截图**
-如适用，添加截图以帮助解释你的问题。
+**Screenshots**
+If applicable, add screenshots to help explain your problem.
 
-**环境信息 (请完成以下信息):**
- - 操作系统: [例如 macOS, Windows]
- - 浏览器: [例如 Chrome, Safari]
- - 版本: [例如 22]
+**Environment (please complete the following information):**
+ - OS: [e.g. macOS, Windows]
+ - Browser: [e.g. Chrome, Safari]
+ - Version: [e.g. 22]
 
-**其他上下文**
-在此处添加有关该问题的任何其他上下文。
+**Additional context**
+Add any other context about the problem here.
