@@ -321,6 +321,30 @@ export async function POST(request: NextRequest) {
         let thinkingContent = ""; // 模型的思考/解释内容
         let toolCallName = "";
         let toolCallArguments = ""; // 累积工具调用的参数
+        let isClosed = false; // 跟踪 controller 状态
+        
+        // 安全地发送数据
+        const safeSend = (data: string) => {
+          if (!isClosed) {
+            try {
+              controller.enqueue(encoder.encode(data));
+            } catch {
+              isClosed = true;
+            }
+          }
+        };
+        
+        // 安全地关闭
+        const safeClose = () => {
+          if (!isClosed) {
+            isClosed = true;
+            try {
+              controller.close();
+            } catch {
+              // 已经关闭，忽略
+            }
+          }
+        };
         
         try {
           for await (const chunk of streamFetch(`${baseUrl}/chat/completions`, {
@@ -339,10 +363,10 @@ export async function POST(request: NextRequest) {
               if (parsed.content) {
                 thinkingContent += parsed.content;
                 // 发送思考内容
-                controller.enqueue(encoder.encode(`data: ${JSON.stringify({ 
+                safeSend(`data: ${JSON.stringify({ 
                   type: "thinking", 
                   content: parsed.content 
-                })}\n\n`));
+                })}\n\n`);
               }
               
               // 处理工具调用
@@ -381,18 +405,18 @@ export async function POST(request: NextRequest) {
                        ? `${textPart}\n\n\`\`\`json\n${jsonContent}\n\`\`\``
                        : `\`\`\`json\n${jsonContent}\n\`\`\``;
                     
-                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ 
+                    safeSend(`data: ${JSON.stringify({ 
                       type: "elements", 
                       elements: args.elements || [],
                       explanation: args.explanation || "",
                       assistantMessage: messageContent
-                    })}\n\n`));
+                    })}\n\n`);
                   } catch (parseError) {
                     console.error("工具参数解析失败:", parseError, toolCallArguments);
-                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ 
+                    safeSend(`data: ${JSON.stringify({ 
                       type: "error", 
                       error: "工具参数解析失败" 
-                    })}\n\n`));
+                    })}\n\n`);
                   }
                 } else if (!toolCallName && thinkingContent) {
                   // 模型没有调用工具，只返回了文本回复
@@ -447,32 +471,32 @@ export async function POST(request: NextRequest) {
                       const result = JSON.parse(jsonStr);
                       
                       if (result.elements && Array.isArray(result.elements)) {
-                        controller.enqueue(encoder.encode(`data: ${JSON.stringify({ 
+                        safeSend(`data: ${JSON.stringify({ 
                           type: "elements", 
                           elements: result.elements, 
                           explanation: result.explanation || `已绘制 ${result.elements.length} 个元素`,
                           assistantMessage: result.explanation || `已绘制 ${result.elements.length} 个元素`
-                        })}\n\n`));
+                        })}\n\n`);
                       } else {
                         console.warn("JSON 中没有 elements 数组:", result);
-                        controller.enqueue(encoder.encode(`data: ${JSON.stringify({ 
+                        safeSend(`data: ${JSON.stringify({ 
                           type: "text_only", 
                           content: thinkingContent 
-                        })}\n\n`));
+                        })}\n\n`);
                       }
                     } catch (parseErr) {
                       console.error("JSON 解析失败:", parseErr, "原始内容:", jsonStr.substring(0, 300));
-                      controller.enqueue(encoder.encode(`data: ${JSON.stringify({ 
+                      safeSend(`data: ${JSON.stringify({ 
                         type: "error", 
                         error: "JSON 格式错误，请重试" 
-                      })}\n\n`));
+                      })}\n\n`);
                     }
                   } else {
                     // 完全没有图形数据
-                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ 
+                    safeSend(`data: ${JSON.stringify({ 
                       type: "text_only", 
                       content: thinkingContent 
-                    })}\n\n`));
+                    })}\n\n`);
                   }
                 }
               }
@@ -480,15 +504,15 @@ export async function POST(request: NextRequest) {
           }
           
           // 发送完成信号
-          controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: "done" })}\n\n`));
-          controller.close();
+          safeSend(`data: ${JSON.stringify({ type: "done" })}\n\n`);
+          safeClose();
         } catch (error) {
           console.error("流式处理错误:", error);
-          controller.enqueue(encoder.encode(`data: ${JSON.stringify({ 
+          safeSend(`data: ${JSON.stringify({ 
             type: "error", 
             error: error instanceof Error ? error.message : "未知错误" 
-          })}\n\n`));
-          controller.close();
+          })}\n\n`);
+          safeClose();
         }
       },
     });

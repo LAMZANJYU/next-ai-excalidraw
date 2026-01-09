@@ -2,7 +2,7 @@
 
 [English](./README.md) | 简体中文
 
-一个基于 **Next.js 16** 和 **Excalidraw** 构建的 AI 驱动白板工具。通过自然语言描述，利用 AI 快速生成流程图、架构图和思维导图。
+一个基于 **Next.js 16** 和 **Excalidraw** 构建的 AI 驱动白板工具。通过自然语言描述，利用 AI 快速生成**手绘风格**的流程图、架构图和思维导图。
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Next.js](https://img.shields.io/badge/Next.js-16.1-black)
@@ -11,7 +11,7 @@
 
 ## ✨ 特性
 
-- 🤖 **AI 驱动绘图**：通过文字描述自动生成 Excalidraw 元素（矩形、圆形、箭头、文本等）。
+- 🤖 **AI 驱动绘图**：通过文字描述自动生成**手绘风格**的 Excalidraw 元素（矩形、圆形、箭头、文本等）。
 - 🔌 **多模型支持**：内置多种主流 AI 模型支持，并支持自定义配置：
   - OpenAI (GPT-4o, GPT-4o-mini)
   - Anthropic (Claude 3.5 Sonnet)

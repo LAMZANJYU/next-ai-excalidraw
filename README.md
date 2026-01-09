@@ -2,7 +2,7 @@
 
 English | [简体中文](./README_zh-CN.md)
 
-An AI-powered whiteboard tool built with **Next.js 16** and **Excalidraw**. Generate flowcharts, architecture diagrams, and mind maps instantly through natural language descriptions.
+An AI-powered whiteboard tool built with **Next.js 16** and **Excalidraw**. Generate **hand-drawn style** flowcharts, architecture diagrams, and mind maps instantly through natural language descriptions.
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Next.js](https://img.shields.io/badge/Next.js-16.1-black)
@@ -11,7 +11,7 @@ An AI-powered whiteboard tool built with **Next.js 16** and **Excalidraw**. Gene
 
 ## ✨ Features
 
-- 🤖 **AI-Powered Drawing**: Automatically generate Excalidraw elements (rectangles, circles, arrows, text, etc.) from text descriptions.
+- 🤖 **AI-Powered Drawing**: Automatically generate **hand-drawn** Excalidraw elements (rectangles, circles, arrows, text, etc.) from text descriptions.
 - 🔌 **Multi-Model Support**: Built-in support for popular AI models with custom configuration options:
   - OpenAI (GPT-4o, GPT-4o-mini)
   - Anthropic (Claude 3.5 Sonnet)
