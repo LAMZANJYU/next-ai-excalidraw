@@ -1,0 +1,22 @@
+/* Excalidraw Canvas Container */
+
+@layer components {
+  .canvas-container {
+    flex: 1;
+    min-width: 0;
+    position: relative;
+    background: #ffffff;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .loading-canvas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    background: #f9fafb;
+  }
+}
